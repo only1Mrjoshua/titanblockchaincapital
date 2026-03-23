@@ -231,11 +231,16 @@
         >
           <div class="xl:col-span-6">
             <div
-              class="inline-flex max-w-full items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 sm:px-4 py-2 mb-6 sm:mb-8"
+              class="inline-flex w-full items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 sm:px-4 py-2 mb-6 sm:mb-8"
             >
               <span class="h-2 w-2 rounded-full bg-primary shrink-0"></span>
+
               <span
-                class="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.24em] text-primary font-semibold truncate"
+                class="uppercase text-primary font-semibold leading-none whitespace-nowrap overflow-hidden text-ellipsis"
+                style="
+                  font-size: clamp(8px, 2.5vw, 11px);
+                  letter-spacing: 0.18em;
+                "
               >
                 Private Wealth Trading Infrastructure
               </span>
