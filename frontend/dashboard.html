@@ -454,323 +454,302 @@
 
             <section class="space-y-4 sm:space-y-6 min-w-0">
               <div
-                class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-10"
+                class="grid grid-cols-1 xl:grid-cols-[1.45fr_0.95fr] gap-4 sm:gap-6 items-stretch"
               >
+                <!-- BIG ACCOUNT BALANCE CARD -->
                 <div
-                  class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6 lg:gap-8"
+                  class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-8 xl:p-10 h-full"
                 >
-                  <div class="max-w-3xl min-w-0">
-                    <div
-                      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] xs:text-[11px] font-bold uppercase tracking-widest mb-4 sm:mb-5"
-                    >
-                      Live Trading Dashboard
+                  <div class="h-full flex flex-col justify-between">
+                    <div class="max-w-3xl min-w-0">
+                      <div
+                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] xs:text-[11px] font-bold uppercase tracking-widest mb-6 sm:mb-8"
+                      >
+                        Live Trading Dashboard
+                      </div>
                     </div>
 
-                    <h1
-                      class="text-white text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight"
+                    <div class="w-full">
+                      <div
+                        class="glass-card rounded-3xl p-4 xs:p-5 sm:p-6 xl:p-7"
+                      >
+                        <div class="flex items-center justify-between gap-4">
+                          <div class="min-w-0">
+                            <p class="text-slate-400 text-sm">
+                              Account Balance
+                            </p>
+                            <h2
+                              class="text-white text-2xl xs:text-3xl sm:text-4xl xl:text-5xl font-black mt-2 break-words"
+                            >
+                              $24,580.00
+                            </h2>
+                          </div>
+                          <div
+                            class="h-12 w-12 xs:h-14 xs:w-14 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
+                          >
+                            <i
+                              data-lucide="wallet-2"
+                              class="w-6 h-6 xs:w-7 xs:h-7 text-black"
+                            ></i>
+                          </div>
+                        </div>
+
+                        <div
+                          class="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 mt-5 sm:mt-6"
+                        >
+                          <div
+                            class="rounded-2xl bg-white/5 border border-white/10 p-4"
+                          >
+                            <p
+                              class="text-slate-400 text-xs uppercase tracking-wider"
+                            >
+                              Equity
+                            </p>
+                            <p class="text-white text-lg font-black mt-2">
+                              $25,140
+                            </p>
+                          </div>
+                          <div
+                            class="rounded-2xl bg-white/5 border border-white/10 p-4"
+                          >
+                            <p
+                              class="text-slate-400 text-xs uppercase tracking-wider"
+                            >
+                              Free Margin
+                            </p>
+                            <p class="text-white text-lg font-black mt-2">
+                              $18,320
+                            </p>
+                          </div>
+                        </div>
+
+                        <div
+                          class="mt-5 sm:mt-6 flex flex-col xs:flex-row flex-wrap gap-3"
+                        >
+                          <a
+                            href="#"
+                            class="px-5 sm:px-6 py-3 text-black font-bold rounded-2xl gold-gradient shadow-xl shadow-primary/20 text-center"
+                          >
+                            Make Deposit
+                          </a>
+                          <a
+                            href="#"
+                            class="px-5 sm:px-6 py-3 bg-white/5 border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 transition-all text-center"
+                          >
+                            Request Withdrawal
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4 SMALL CARDS ON THE RIGHT -->
+                <div
+                  class="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-2 gap-4 sm:gap-5"
+                >
+                  <!-- CARD -->
+                  <div
+                    class="glass-card rounded-3xl p-5 sm:p-6 min-w-0 xl:min-h-[230px] xl:flex xl:flex-col"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-3 xl:min-h-[56px]"
                     >
-                      Welcome back to your
-                      <span class="text-primary">trading dashboard</span>
-                    </h1>
+                      <p class="text-slate-400 text-sm xl:leading-8">
+                        Total Deposit
+                      </p>
+                      <i
+                        data-lucide="arrow-down-left"
+                        class="w-5 h-5 text-primary"
+                      ></i>
+                    </div>
 
                     <p
-                      class="text-slate-300 text-sm xs:text-base sm:text-lg leading-relaxed mt-4 sm:mt-5 max-w-2xl"
+                      class="text-white text-2xl font-black mt-4 xl:mt-6 xl:leading-none"
                     >
-                      Monitor your account balance, track performance, review
-                      transaction history, manage deposits and withdrawals, and
-                      stay connected to your trading activity from one premium
-                      control center.
+                      $12,500.00
                     </p>
 
-                    <div
-                      class="mt-5 sm:mt-6 flex flex-col xs:flex-row flex-wrap gap-3"
+                    <p
+                      class="text-emerald-400 text-sm mt-2 xl:mt-5 xl:leading-6"
                     >
-                      <a
-                        href="#"
-                        class="px-5 sm:px-6 py-3 text-black font-bold rounded-2xl gold-gradient shadow-xl shadow-primary/20 text-center"
-                      >
-                        Make Deposit
-                      </a>
-                      <a
-                        href="#"
-                        class="px-5 sm:px-6 py-3 bg-white/5 border border-white/10 text-white font-bold rounded-2xl hover:bg-white/10 transition-all text-center"
-                      >
-                        Request Withdrawal
-                      </a>
+                      +8.4% this month
+                    </p>
+                  </div>
+
+                  <!-- CARD -->
+                  <div
+                    class="glass-card rounded-3xl p-5 sm:p-6 min-w-0 xl:min-h-[230px] xl:flex xl:flex-col"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-3 xl:min-h-[56px]"
+                    >
+                      <p class="text-slate-400 text-sm xl:leading-8">
+                        Total Withdrawal
+                      </p>
+                      <i
+                        data-lucide="arrow-up-right"
+                        class="w-5 h-5 text-primary"
+                      ></i>
                     </div>
+
+                    <p
+                      class="text-white text-2xl font-black mt-4 xl:mt-6 xl:leading-none"
+                    >
+                      $4,800.00
+                    </p>
+
+                    <p class="text-slate-400 text-sm mt-2 xl:mt-5 xl:leading-6">
+                      Processed successfully
+                    </p>
                   </div>
 
-                  <div class="xl:min-w-[340px] min-w-0">
-                    <div class="glass-card rounded-3xl p-4 xs:p-5 sm:p-6">
-                      <div class="flex items-center justify-between gap-4">
-                        <div class="min-w-0">
-                          <p class="text-slate-400 text-sm">Account Balance</p>
-                          <h2
-                            class="text-white text-2xl xs:text-3xl sm:text-4xl font-black mt-2 break-words"
-                          >
-                            $24,580.00
-                          </h2>
-                        </div>
-                        <div
-                          class="h-12 w-12 xs:h-14 xs:w-14 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
-                        >
-                          <i
-                            data-lucide="wallet-2"
-                            class="w-6 h-6 xs:w-7 xs:h-7 text-black"
-                          ></i>
-                        </div>
-                      </div>
-
-                      <div
-                        class="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 mt-5 sm:mt-6"
-                      >
-                        <div
-                          class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                        >
-                          <p
-                            class="text-slate-400 text-xs uppercase tracking-wider"
-                          >
-                            Equity
-                          </p>
-                          <p class="text-white text-lg font-black mt-2">
-                            $25,140
-                          </p>
-                        </div>
-                        <div
-                          class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                        >
-                          <p
-                            class="text-slate-400 text-xs uppercase tracking-wider"
-                          >
-                            Free Margin
-                          </p>
-                          <p class="text-white text-lg font-black mt-2">
-                            $18,320
-                          </p>
-                        </div>
-                      </div>
+                  <!-- CARD -->
+                  <div
+                    class="glass-card rounded-3xl p-5 sm:p-6 min-w-0 xl:min-h-[230px] xl:flex xl:flex-col"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-3 xl:min-h-[56px]"
+                    >
+                      <p class="text-slate-400 text-sm xl:leading-8">
+                        Open Positions
+                      </p>
+                      <i
+                        data-lucide="candlestick-chart"
+                        class="w-5 h-5 text-primary"
+                      ></i>
                     </div>
-                  </div>
-                </div>
-              </div>
 
-              <div
-                class="grid grid-cols-1 xs:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5"
-              >
-                <div class="glass-card rounded-3xl p-5 sm:p-6 min-w-0">
-                  <div class="flex items-center justify-between gap-3">
-                    <p class="text-slate-400 text-sm">Total Deposit</p>
-                    <i
-                      data-lucide="arrow-down-left"
-                      class="w-5 h-5 text-primary shrink-0"
-                    ></i>
-                  </div>
-                  <p class="text-white text-2xl font-black mt-4">$12,500.00</p>
-                  <p class="text-emerald-400 text-sm mt-2">+8.4% this month</p>
-                </div>
+                    <p
+                      class="text-white text-2xl font-black mt-4 xl:mt-6 xl:leading-none"
+                    >
+                      12
+                    </p>
 
-                <div class="glass-card rounded-3xl p-5 sm:p-6 min-w-0">
-                  <div class="flex items-center justify-between gap-3">
-                    <p class="text-slate-400 text-sm">Total Withdrawal</p>
-                    <i
-                      data-lucide="arrow-up-right"
-                      class="w-5 h-5 text-primary shrink-0"
-                    ></i>
+                    <p class="text-slate-400 text-sm mt-2 xl:mt-5 xl:leading-6">
+                      Across forex and indices
+                    </p>
                   </div>
-                  <p class="text-white text-2xl font-black mt-4">$4,800.00</p>
-                  <p class="text-slate-400 text-sm mt-2">
-                    Processed successfully
-                  </p>
-                </div>
 
-                <div class="glass-card rounded-3xl p-5 sm:p-6 min-w-0">
-                  <div class="flex items-center justify-between gap-3">
-                    <p class="text-slate-400 text-sm">Open Positions</p>
-                    <i
-                      data-lucide="candlestick-chart"
-                      class="w-5 h-5 text-primary shrink-0"
-                    ></i>
-                  </div>
-                  <p class="text-white text-2xl font-black mt-4">12</p>
-                  <p class="text-slate-400 text-sm mt-2">
-                    Across forex and indices
-                  </p>
-                </div>
+                  <!-- CARD -->
+                  <div
+                    class="glass-card rounded-3xl p-5 sm:p-6 min-w-0 xl:min-h-[230px] xl:flex xl:flex-col"
+                  >
+                    <div
+                      class="flex items-center justify-between gap-3 xl:min-h-[56px]"
+                    >
+                      <p class="text-slate-400 text-sm xl:leading-8">
+                        Monthly Profit
+                      </p>
+                      <i
+                        data-lucide="trending-up"
+                        class="w-5 h-5 text-primary"
+                      ></i>
+                    </div>
 
-                <div class="glass-card rounded-3xl p-5 sm:p-6 min-w-0">
-                  <div class="flex items-center justify-between gap-3">
-                    <p class="text-slate-400 text-sm">Monthly Profit</p>
-                    <i
-                      data-lucide="trending-up"
-                      class="w-5 h-5 text-primary shrink-0"
-                    ></i>
+                    <p
+                      class="text-white text-2xl font-black mt-4 xl:mt-6 xl:leading-none"
+                    >
+                      $3,240.00
+                    </p>
+
+                    <p
+                      class="text-emerald-400 text-sm mt-2 xl:mt-5 xl:leading-6"
+                    >
+                      Profitable performance
+                    </p>
                   </div>
-                  <p class="text-white text-2xl font-black mt-4">$3,240.00</p>
-                  <p class="text-emerald-400 text-sm mt-2">
-                    Profitable performance
-                  </p>
                 </div>
               </div>
 
               <div class="grid xl:grid-cols-[1.15fr_0.85fr] gap-4 sm:gap-6">
+                <!-- Trading Bot -->
                 <div
-                  class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-8"
+                  class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-7"
                 >
-                  <div
-                    class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-5 sm:mb-6"
-                  >
-                    <div class="min-w-0">
-                      <h3
-                        class="text-white text-xl sm:text-2xl font-black tracking-tight"
-                      >
-                        Account Performance
-                      </h3>
-                      <p class="text-slate-400 text-sm mt-2">
-                        A quick visual view of recent balance movement.
-                      </p>
-                    </div>
-                    <div
-                      class="self-start px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider"
-                    >
-                      +12.8%
-                    </div>
+                  <div class="flex items-center gap-3 mb-4">
+                    <i data-lucide="bot" class="w-5 h-5 text-primary"></i>
+                    <h3 class="text-white text-lg sm:text-xl font-black">
+                      Trading Bot
+                    </h3>
                   </div>
 
-                  <div class="mini-chart">
-                    <svg
-                      viewBox="0 0 800 240"
-                      fill="none"
-                      preserveAspectRatio="none"
-                    >
-                      <path
-                        d="M0 190 C40 180, 70 150, 110 158 C160 168, 180 120, 230 128 C280 136, 300 96, 350 108 C410 122, 430 78, 500 92 C560 104, 590 54, 650 66 C710 78, 740 42, 800 30"
-                        stroke="#e4b84f"
-                        stroke-width="4"
-                        stroke-linecap="round"
-                      />
-                      <path
-                        d="M0 190 C40 180, 70 150, 110 158 C160 168, 180 120, 230 128 C280 136, 300 96, 350 108 C410 122, 430 78, 500 92 C560 104, 590 54, 650 66 C710 78, 740 42, 800 30 V240 H0 Z"
-                        fill="url(#chartFill)"
-                        opacity="0.95"
-                      />
-                      <defs>
-                        <linearGradient
-                          id="chartFill"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="1"
-                        >
-                          <stop
-                            offset="0%"
-                            stop-color="#e4b84f"
-                            stop-opacity="0.28"
-                          />
-                          <stop
-                            offset="100%"
-                            stop-color="#e4b84f"
-                            stop-opacity="0"
-                          />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                  </div>
-                </div>
-
-                <div class="space-y-4 sm:space-y-6">
                   <div
-                    class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-7"
+                    class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5"
                   >
-                    <div class="flex items-center gap-3 mb-4">
-                      <i data-lucide="bot" class="w-5 h-5 text-primary"></i>
-                      <h3 class="text-white text-lg sm:text-xl font-black">
-                        Trading Bot
-                      </h3>
-                    </div>
-
-                    <div
-                      class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5"
-                    >
-                      <div class="flex items-start justify-between gap-4">
-                        <div class="min-w-0">
-                          <p class="text-white font-bold text-base sm:text-lg">
-                            Automated Trading Support
-                          </p>
-                          <p class="text-slate-400 text-sm mt-2 leading-7">
-                            The trading bot helps you place trades faster, take
-                            advantage of market opportunities more efficiently,
-                            and maintain a more disciplined and structured
-                            trading experience.
-                          </p>
-                        </div>
-
-                        <div
-                          class="h-11 w-11 sm:h-12 sm:w-12 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
-                        >
-                          <i
-                            data-lucide="cpu"
-                            class="w-5 h-5 sm:w-6 sm:h-6 text-black"
-                          ></i>
-                        </div>
+                    <div class="flex items-start justify-between gap-4">
+                      <div class="min-w-0">
+                        <p class="text-white font-bold text-base sm:text-lg">
+                          Automated Trading Support
+                        </p>
+                        <p class="text-slate-400 text-sm mt-2 leading-7">
+                          The trading bot helps you place trades faster, take
+                          advantage of market opportunities more efficiently,
+                          and maintain a more disciplined and structured trading
+                          experience.
+                        </p>
                       </div>
 
                       <div
-                        class="mt-5 flex flex-col xs:flex-row flex-wrap gap-3"
+                        class="h-11 w-11 sm:h-12 sm:w-12 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
                       >
-                        <button
-                          type="button"
-                          class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:bg-white/10 transition-colors"
-                        >
-                          Activate Bot
-                        </button>
+                        <i
+                          data-lucide="cpu"
+                          class="w-5 h-5 sm:w-6 sm:h-6 text-black"
+                        ></i>
                       </div>
+                    </div>
+
+                    <div class="mt-5 flex flex-col xs:flex-row flex-wrap gap-3">
+                      <button
+                        type="button"
+                        class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-semibold hover:bg-white/10 transition-colors"
+                      >
+                        Activate Bot
+                      </button>
                     </div>
                   </div>
+                </div>
 
-                  <div
-                    class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-7"
-                  >
-                    <div class="flex items-center gap-3 mb-4">
-                      <i
-                        data-lucide="activity"
-                        class="w-5 h-5 text-primary"
-                      ></i>
-                      <h3 class="text-white text-lg sm:text-xl font-black">
-                        Quick Stats
-                      </h3>
+                <!-- Quick Stats -->
+                <div
+                  class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-7"
+                >
+                  <div class="flex items-center gap-3 mb-4">
+                    <i data-lucide="activity" class="w-5 h-5 text-primary"></i>
+                    <h3 class="text-white text-lg sm:text-xl font-black">
+                      Quick Stats
+                    </h3>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div class="flex items-center justify-between gap-4">
+                      <span class="text-slate-400 text-sm">Active Orders</span>
+                      <span class="text-white font-bold">08</span>
                     </div>
-
-                    <div class="space-y-4">
-                      <div class="flex items-center justify-between gap-4">
-                        <span class="text-slate-400 text-sm"
-                          >Active Orders</span
-                        >
-                        <span class="text-white font-bold">08</span>
-                      </div>
-                      <div class="flex items-center justify-between gap-4">
-                        <span class="text-slate-400 text-sm"
-                          >Completed Trades</span
-                        >
-                        <span class="text-white font-bold">146</span>
-                      </div>
-                      <div class="flex items-center justify-between gap-4">
-                        <span class="text-slate-400 text-sm"
-                          >Pending Withdrawal</span
-                        >
-                        <span class="text-yellow-400 font-bold">$1,200</span>
-                      </div>
-                      <div class="flex items-center justify-between gap-4">
-                        <span class="text-slate-400 text-sm">Account Type</span>
-                        <span class="text-white font-bold">Live Premium</span>
-                      </div>
+                    <div class="flex items-center justify-between gap-4">
+                      <span class="text-slate-400 text-sm"
+                        >Completed Trades</span
+                      >
+                      <span class="text-white font-bold">146</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-4">
+                      <span class="text-slate-400 text-sm"
+                        >Pending Withdrawal</span
+                      >
+                      <span class="text-yellow-400 font-bold">$1,200</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-4">
+                      <span class="text-slate-400 text-sm">Account Type</span>
+                      <span class="text-white font-bold">Live Premium</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="grid xl:grid-cols-[1.05fr_0.95fr] gap-4 sm:gap-6">
+              <div class="w-full">
                 <div
-                  class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-8 min-w-0"
+                  class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-8 min-w-0 w-full"
                 >
                   <div
                     class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-5 sm:mb-6"
