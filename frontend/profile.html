@@ -93,6 +93,35 @@
           linear-gradient(180deg, #060913 0%, #070b14 45%, #09101b 100%);
       }
 
+      .form-input {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        color: white !important;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .form-input::placeholder {
+        color: rgb(148 163 184) !important;
+      }
+
+      .form-input:focus {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(228, 184, 79, 0.45) !important;
+        box-shadow: 0 0 0 3px rgba(228, 184, 79, 0.08) !important;
+        outline: none;
+      }
+
+      select.form-input {
+        background-color: rgba(255, 255, 255, 0.04) !important;
+        color: white !important;
+      }
+
+      select.form-input option {
+        background: #10172a !important;
+        color: white !important;
+      }
+
       body.sidebar-open,
       body.modal-open {
         overflow: hidden;
