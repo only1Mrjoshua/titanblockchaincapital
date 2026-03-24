@@ -244,17 +244,6 @@
             </h2>
           </div>
 
-          <div class="hidden lg:flex items-center gap-3">
-            <div
-              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider"
-            >
-              <span
-                class="w-2 h-2 rounded-full bg-emerald-400 badge-dot"
-              ></span>
-              Live Account Active
-            </div>
-          </div>
-
           <div class="flex items-center gap-2">
             <button
               class="hidden sm:inline-flex h-10 w-10 rounded-xl bg-white/5 border border-white/10 items-center justify-center text-slate-300"
@@ -711,38 +700,65 @@
                   </div>
                 </div>
 
-                <!-- Quick Stats -->
+                <!-- Chart Card -->
                 <div
                   class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-7"
                 >
                   <div class="flex items-center gap-3 mb-4">
                     <i data-lucide="activity" class="w-5 h-5 text-primary"></i>
                     <h3 class="text-white text-lg sm:text-xl font-black">
-                      Quick Stats
+                      Performance Chart
                     </h3>
                   </div>
 
-                  <div class="space-y-4">
-                    <div class="flex items-center justify-between gap-4">
-                      <span class="text-slate-400 text-sm">Active Orders</span>
-                      <span class="text-white font-bold">08</span>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                      <span class="text-slate-400 text-sm"
-                        >Completed Trades</span
-                      >
-                      <span class="text-white font-bold">146</span>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                      <span class="text-slate-400 text-sm"
-                        >Pending Withdrawal</span
-                      >
-                      <span class="text-yellow-400 font-bold">$1,200</span>
-                    </div>
-                    <div class="flex items-center justify-between gap-4">
-                      <span class="text-slate-400 text-sm">Account Type</span>
-                      <span class="text-white font-bold">Live Premium</span>
-                    </div>
+                  <div class="mini-chart">
+                    <svg
+                      viewBox="0 0 800 240"
+                      fill="none"
+                      preserveAspectRatio="none"
+                    >
+                      <!-- line -->
+                      <path
+                        d="M0 180 C60 170, 90 130, 140 140 C200 155, 230 110, 280 120 C340 135, 380 90, 440 100 C500 115, 540 70, 600 85 C660 100, 700 60, 760 75 C780 80, 790 70, 800 65"
+                        stroke="#e4b84f"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                      />
+
+                      <!-- fill -->
+                      <path
+                        d="M0 180 C60 170, 90 130, 140 140 C200 155, 230 110, 280 120 C340 135, 380 90, 440 100 C500 115, 540 70, 600 85 C660 100, 700 60, 760 75 C780 80, 790 70, 800 65 V240 H0 Z"
+                        fill="url(#chartFill2)"
+                        opacity="0.9"
+                      />
+
+                      <defs>
+                        <linearGradient
+                          id="chartFill2"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="0%"
+                            stop-color="#e4b84f"
+                            stop-opacity="0.3"
+                          />
+                          <stop
+                            offset="100%"
+                            stop-color="#e4b84f"
+                            stop-opacity="0"
+                          />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+
+                  <!-- bottom stats -->
+                  <div class="mt-5 flex items-center justify-between text-sm">
+                    <span class="text-slate-400">Growth</span>
+                    <span class="text-emerald-400 font-bold">+12.8%</span>
                   </div>
                 </div>
               </div>
