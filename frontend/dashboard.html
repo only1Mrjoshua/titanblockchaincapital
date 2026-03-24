@@ -779,10 +779,11 @@
                       <h3
                         class="text-white text-xl sm:text-2xl font-black tracking-tight"
                       >
-                        Recent Transaction History
+                        Recent Transactions
                       </h3>
                       <p class="text-slate-400 text-sm mt-2">
-                        Review your latest deposits, withdrawals, and credits.
+                        View your latest activity and tap any transaction to see
+                        full details.
                       </p>
                     </div>
                     <a
@@ -793,121 +794,114 @@
                     </a>
                   </div>
 
-                  <div class="table-scroll overflow-x-auto">
-                    <table class="w-full min-w-[680px]">
-                      <thead>
-                        <tr class="border-b border-white/10 text-left">
-                          <th
-                            class="pb-4 text-slate-400 text-xs uppercase tracking-wider font-bold"
-                          >
-                            Date
-                          </th>
-                          <th
-                            class="pb-4 text-slate-400 text-xs uppercase tracking-wider font-bold"
-                          >
-                            Type
-                          </th>
-                          <th
-                            class="pb-4 text-slate-400 text-xs uppercase tracking-wider font-bold"
-                          >
-                            Method
-                          </th>
-                          <th
-                            class="pb-4 text-slate-400 text-xs uppercase tracking-wider font-bold"
-                          >
-                            Amount
-                          </th>
-                          <th
-                            class="pb-4 text-slate-400 text-xs uppercase tracking-wider font-bold"
-                          >
-                            Status
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody class="divide-y divide-white/10">
-                        <tr>
-                          <td class="py-4 text-sm text-slate-300">
-                            24 Mar 2026
-                          </td>
-                          <td class="py-4 text-sm text-white font-semibold">
+                  <div class="space-y-3">
+                    <!-- Transaction Item -->
+                    <div
+                      class="transaction-item rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
+                    >
+                      <button
+                        type="button"
+                        class="transaction-toggle w-full flex items-center justify-between gap-4 px-4 sm:px-5 py-4 text-left hover:bg-white/[0.03] transition-colors"
+                      >
+                        <div class="min-w-0">
+                          <p class="text-white font-bold text-sm sm:text-base">
                             Deposit
-                          </td>
-                          <td class="py-4 text-sm text-slate-300">
-                            USDT (TRC20)
-                          </td>
-                          <td class="py-4 text-sm text-emerald-400 font-bold">
+                          </p>
+                          <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                            24 Mar 2026 • USDT (TRC20)
+                          </p>
+                        </div>
+
+                        <div class="flex items-center gap-3 shrink-0">
+                          <p
+                            class="text-emerald-400 font-bold text-sm sm:text-base"
+                          >
                             +$5,000
-                          </td>
-                          <td class="py-4">
-                            <span
-                              class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider"
-                            >
-                              Completed
-                            </span>
-                          </td>
-                        </tr>
+                          </p>
+                        </div>
+                      </button>
+                    </div>
 
-                        <tr>
-                          <td class="py-4 text-sm text-slate-300">
-                            21 Mar 2026
-                          </td>
-                          <td class="py-4 text-sm text-white font-semibold">
+                    <!-- Transaction Item -->
+                    <div
+                      class="transaction-item rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
+                    >
+                      <button
+                        type="button"
+                        class="transaction-toggle w-full flex items-center justify-between gap-4 px-4 sm:px-5 py-4 text-left hover:bg-white/[0.03] transition-colors"
+                      >
+                        <div class="min-w-0">
+                          <p class="text-white font-bold text-sm sm:text-base">
                             Withdrawal
-                          </td>
-                          <td class="py-4 text-sm text-slate-300">BTC</td>
-                          <td class="py-4 text-sm text-red-400 font-bold">
+                          </p>
+                          <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                            21 Mar 2026 • BTC
+                          </p>
+                        </div>
+
+                        <div class="flex items-center gap-3 shrink-0">
+                          <p
+                            class="text-red-400 font-bold text-sm sm:text-base"
+                          >
                             -$1,200
-                          </td>
-                          <td class="py-4">
-                            <span
-                              class="px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase tracking-wider"
-                            >
-                              Pending
-                            </span>
-                          </td>
-                        </tr>
+                          </p>
+                        </div>
+                      </button>
+                    </div>
 
-                        <tr>
-                          <td class="py-4 text-sm text-slate-300">
-                            18 Mar 2026
-                          </td>
-                          <td class="py-4 text-sm text-white font-semibold">
+                    <!-- Transaction Item -->
+                    <div
+                      class="transaction-item rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
+                    >
+                      <button
+                        type="button"
+                        class="transaction-toggle w-full flex items-center justify-between gap-4 px-4 sm:px-5 py-4 text-left hover:bg-white/[0.03] transition-colors"
+                      >
+                        <div class="min-w-0">
+                          <p class="text-white font-bold text-sm sm:text-base">
                             Profit Credit
-                          </td>
-                          <td class="py-4 text-sm text-slate-300">System</td>
-                          <td class="py-4 text-sm text-emerald-400 font-bold">
-                            +$840
-                          </td>
-                          <td class="py-4">
-                            <span
-                              class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider"
-                            >
-                              Completed
-                            </span>
-                          </td>
-                        </tr>
+                          </p>
+                          <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                            18 Mar 2026 • System
+                          </p>
+                        </div>
 
-                        <tr>
-                          <td class="py-4 text-sm text-slate-300">
-                            15 Mar 2026
-                          </td>
-                          <td class="py-4 text-sm text-white font-semibold">
+                        <div class="flex items-center gap-3 shrink-0">
+                          <p
+                            class="text-emerald-400 font-bold text-sm sm:text-base"
+                          >
+                            +$840
+                          </p>
+                        </div>
+                      </button>
+                    </div>
+
+                    <!-- Transaction Item -->
+                    <div
+                      class="transaction-item rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
+                    >
+                      <button
+                        type="button"
+                        class="transaction-toggle w-full flex items-center justify-between gap-4 px-4 sm:px-5 py-4 text-left hover:bg-white/[0.03] transition-colors"
+                      >
+                        <div class="min-w-0">
+                          <p class="text-white font-bold text-sm sm:text-base">
                             Deposit
-                          </td>
-                          <td class="py-4 text-sm text-slate-300">Ethereum</td>
-                          <td class="py-4 text-sm text-emerald-400 font-bold">
+                          </p>
+                          <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                            15 Mar 2026 • Ethereum
+                          </p>
+                        </div>
+
+                        <div class="flex items-center gap-3 shrink-0">
+                          <p
+                            class="text-emerald-400 font-bold text-sm sm:text-base"
+                          >
                             +$2,500
-                          </td>
-                          <td class="py-4">
-                            <span
-                              class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider"
-                            >
-                              Completed
-                            </span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                          </p>
+                        </div>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
