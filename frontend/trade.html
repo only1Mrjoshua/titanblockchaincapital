@@ -549,7 +549,6 @@
                 </div>
               </div>
 
-              <!-- Live Signals -->
               <div
                 class="premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-8"
               >
@@ -563,211 +562,109 @@
                       Live Trade Signals
                     </h3>
                     <p class="text-slate-400 text-sm mt-2">
-                      Review each signal carefully before accepting it.
+                      Review and accept active trade signals.
                     </p>
                   </div>
+                  <a
+                    href="#"
+                    class="self-start text-primary text-sm font-bold hover:text-white transition-colors"
+                  >
+                    Refresh
+                  </a>
                 </div>
 
-                <div class="grid xl:grid-cols-3 gap-4 sm:gap-5">
-                  <!-- Signal 1 -->
+                <div class="space-y-3">
                   <div
-                    class="glass-card signal-card-live rounded-3xl p-5 sm:p-6"
+                    class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
                   >
-                    <div class="flex items-center justify-between gap-3 mb-4">
-                      <div
-                        class="px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-bold uppercase tracking-wider"
-                      >
-                        Live Signal
-                      </div>
-                      <div
-                        class="h-10 w-10 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
-                      >
-                        <i
-                          data-lucide="trending-up"
-                          class="w-5 h-5 text-black"
-                        ></i>
-                      </div>
-                    </div>
-
-                    <h4 class="text-white text-xl font-black">EUR/USD BUY</h4>
-                    <p class="text-slate-400 text-sm mt-2 leading-7">
-                      Entry at 1.0820 with projected upside movement based on
-                      current session structure.
-                    </p>
-
-                    <div class="grid grid-cols-2 gap-3 mt-5">
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">Entry</p>
-                        <p class="text-white font-black mt-2">1.0820</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Take Profit
-                        </p>
-                        <p class="text-white font-black mt-2">1.0880</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Stop Loss
-                        </p>
-                        <p class="text-white font-black mt-2">1.0785</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Risk Level
-                        </p>
-                        <p class="text-white font-black mt-2">Moderate</p>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      class="w-full mt-5 py-3 text-black font-bold rounded-2xl gold-gradient"
+                    <div
+                      class="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-4 sm:px-5 py-4"
                     >
-                      Accept Signal
-                    </button>
+                      <div class="min-w-0">
+                        <p class="text-white font-bold text-sm sm:text-base">
+                          EUR/USD BUY
+                        </p>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                          Entry 1.0820 • TP 1.0880 • SL 1.0785
+                        </p>
+                      </div>
+
+                      <div class="flex items-center gap-3 shrink-0">
+                        <span
+                          class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] sm:text-xs font-bold uppercase tracking-wider"
+                        >
+                          Live
+                        </span>
+                        <button
+                          type="button"
+                          class="px-4 py-2 rounded-xl gold-gradient text-black text-sm font-bold"
+                        >
+                          Accept
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
-                  <!-- Signal 2 -->
                   <div
-                    class="glass-card signal-card-live rounded-3xl p-5 sm:p-6"
+                    class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
                   >
-                    <div class="flex items-center justify-between gap-3 mb-4">
-                      <div
-                        class="px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-bold uppercase tracking-wider"
-                      >
-                        Live Signal
-                      </div>
-                      <div
-                        class="h-10 w-10 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
-                      >
-                        <i
-                          data-lucide="activity"
-                          class="w-5 h-5 text-black"
-                        ></i>
-                      </div>
-                    </div>
-
-                    <h4 class="text-white text-xl font-black">GOLD SELL</h4>
-                    <p class="text-slate-400 text-sm mt-2 leading-7">
-                      Short opportunity on gold with resistance pressure and
-                      expected downside continuation.
-                    </p>
-
-                    <div class="grid grid-cols-2 gap-3 mt-5">
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">Entry</p>
-                        <p class="text-white font-black mt-2">2168.00</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Take Profit
-                        </p>
-                        <p class="text-white font-black mt-2">2149.00</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Stop Loss
-                        </p>
-                        <p class="text-white font-black mt-2">2178.50</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Risk Level
-                        </p>
-                        <p class="text-white font-black mt-2">High</p>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      class="w-full mt-5 py-3 text-black font-bold rounded-2xl gold-gradient"
+                    <div
+                      class="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-4 sm:px-5 py-4"
                     >
-                      Accept Signal
-                    </button>
+                      <div class="min-w-0">
+                        <p class="text-white font-bold text-sm sm:text-base">
+                          GOLD SELL
+                        </p>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                          Entry 2168.00 • TP 2149.00 • SL 2178.50
+                        </p>
+                      </div>
+
+                      <div class="flex items-center gap-3 shrink-0">
+                        <span
+                          class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] sm:text-xs font-bold uppercase tracking-wider"
+                        >
+                          Live
+                        </span>
+                        <button
+                          type="button"
+                          class="px-4 py-2 rounded-xl gold-gradient text-black text-sm font-bold"
+                        >
+                          Accept
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
-                  <!-- Signal 3 -->
                   <div
-                    class="glass-card signal-card-live rounded-3xl p-5 sm:p-6"
+                    class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
                   >
-                    <div class="flex items-center justify-between gap-3 mb-4">
-                      <div
-                        class="px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-bold uppercase tracking-wider"
-                      >
-                        Live Signal
-                      </div>
-                      <div
-                        class="h-10 w-10 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
-                      >
-                        <i
-                          data-lucide="bar-chart-3"
-                          class="w-5 h-5 text-black"
-                        ></i>
-                      </div>
-                    </div>
-
-                    <h4 class="text-white text-xl font-black">NAS100 BUY</h4>
-                    <p class="text-slate-400 text-sm mt-2 leading-7">
-                      Index momentum remains strong with bullish continuation
-                      expected above current structure.
-                    </p>
-
-                    <div class="grid grid-cols-2 gap-3 mt-5">
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">Entry</p>
-                        <p class="text-white font-black mt-2">18245</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Take Profit
-                        </p>
-                        <p class="text-white font-black mt-2">18380</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Stop Loss
-                        </p>
-                        <p class="text-white font-black mt-2">18170</p>
-                      </div>
-                      <div
-                        class="rounded-2xl bg-white/5 border border-white/10 p-4"
-                      >
-                        <p class="text-slate-400 text-xs uppercase">
-                          Risk Level
-                        </p>
-                        <p class="text-white font-black mt-2">Moderate</p>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      class="w-full mt-5 py-3 text-black font-bold rounded-2xl gold-gradient"
+                    <div
+                      class="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-4 sm:px-5 py-4"
                     >
-                      Accept Signal
-                    </button>
+                      <div class="min-w-0">
+                        <p class="text-white font-bold text-sm sm:text-base">
+                          NAS100 BUY
+                        </p>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                          Entry 18245 • TP 18380 • SL 18170
+                        </p>
+                      </div>
+
+                      <div class="flex items-center gap-3 shrink-0">
+                        <span
+                          class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] sm:text-xs font-bold uppercase tracking-wider"
+                        >
+                          Live
+                        </span>
+                        <button
+                          type="button"
+                          class="px-4 py-2 rounded-xl gold-gradient text-black text-sm font-bold"
+                        >
+                          Accept
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
