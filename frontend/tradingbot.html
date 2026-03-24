@@ -98,6 +98,20 @@
         overflow: hidden;
       }
 
+      #botModalCard .overflow-y-auto {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+      }
+
+      #botModalCard .overflow-y-auto::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #botModalCard .overflow-y-auto::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+      }
+
       .premium-panel {
         background: linear-gradient(
           180deg,
@@ -653,7 +667,6 @@
       </div>
     </main>
 
-    <!-- Activation Modal -->
     <div
       id="botModal"
       class="fixed inset-0 z-[70] bg-black/70 backdrop-blur-[3px] transition-all duration-300 modal-hidden"
@@ -663,9 +676,11 @@
       >
         <div
           id="botModalCard"
-          class="w-full max-w-2xl premium-panel premium-border rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-8 transition-all duration-300 modal-card-hidden"
+          class="w-full max-w-2xl premium-panel premium-border rounded-3xl transition-all duration-300 modal-card-hidden max-h-[90vh] overflow-hidden flex flex-col"
         >
-          <div class="flex items-center justify-between gap-4 mb-6">
+          <div
+            class="flex items-center justify-between gap-4 p-4 xs:p-5 sm:p-6 lg:p-8 pb-4 border-b border-white/10 shrink-0"
+          >
             <div>
               <p
                 class="text-primary text-[11px] font-bold uppercase tracking-widest"
@@ -686,96 +701,104 @@
             </button>
           </div>
 
-          <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-5 sm:gap-6">
-            <div class="space-y-4">
-              <div class="glass-card rounded-3xl p-5">
-                <p class="text-slate-400 text-sm">Activation Fee</p>
-                <h4 class="text-white text-4xl font-black mt-3">$10,000</h4>
-                <p class="text-primary text-sm mt-3 font-semibold">
-                  One-time payment
-                </p>
+          <div class="overflow-y-auto flex-1 p-4 xs:p-5 sm:p-6 lg:p-8 pt-5">
+            <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-5 sm:gap-6">
+              <div class="space-y-4">
+                <div class="glass-card rounded-3xl p-5">
+                  <p class="text-slate-400 text-sm">Activation Fee</p>
+                  <h4 class="text-white text-4xl font-black mt-3">$10,000</h4>
+                  <p class="text-primary text-sm mt-3 font-semibold">
+                    One-time payment
+                  </p>
+                </div>
+
+                <div class="glass-card rounded-3xl p-5">
+                  <p class="text-slate-400 text-sm mb-2">Wallet Address</p>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      value="TBC-BOT-ACTIVATION-WALLET-ADDRESS-1234567890"
+                      readonly
+                      class="form-input w-full rounded-2xl px-4 py-4 pr-24 text-sm"
+                    />
+                    <button
+                      type="button"
+                      class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div class="glass-card rounded-3xl p-5">
-                <p class="text-slate-400 text-sm mb-2">Wallet Address</p>
-                <div class="relative">
+              <form class="space-y-5">
+                <div>
+                  <label
+                    class="block text-sm font-semibold text-slate-200 mb-2"
+                  >
+                    Select Coin
+                  </label>
+                  <div class="relative">
+                    <select
+                      class="form-input w-full rounded-2xl px-4 py-4 pr-12 text-sm"
+                    >
+                      <option>Bitcoin (BTC)</option>
+                      <option>Ethereum (ETH)</option>
+                      <option>USDT (TRC20)</option>
+                      <option>USDT (ERC20)</option>
+                      <option>BNB</option>
+                    </select>
+                    <i
+                      data-lucide="chevron-down"
+                      class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
+                    ></i>
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-sm font-semibold text-slate-200 mb-2"
+                  >
+                    Transaction Hash / ID
+                  </label>
                   <input
                     type="text"
-                    value="TBC-BOT-ACTIVATION-WALLET-ADDRESS-1234567890"
-                    readonly
-                    class="form-input w-full rounded-2xl px-4 py-4 pr-24 text-sm"
+                    placeholder="Enter transaction hash"
+                    class="form-input w-full rounded-2xl px-4 py-4 text-sm"
                   />
-                  <button
-                    type="button"
-                    class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-                  >
-                    Copy
-                  </button>
                 </div>
-              </div>
-            </div>
 
-            <form class="space-y-5">
-              <div>
-                <label class="block text-sm font-semibold text-slate-200 mb-2">
-                  Select Coin
-                </label>
-                <div class="relative">
-                  <select
-                    class="form-input w-full rounded-2xl px-4 py-4 pr-12 text-sm"
+                <div>
+                  <label
+                    class="block text-sm font-semibold text-slate-200 mb-2"
                   >
-                    <option>Bitcoin (BTC)</option>
-                    <option>Ethereum (ETH)</option>
-                    <option>USDT (TRC20)</option>
-                    <option>USDT (ERC20)</option>
-                    <option>BNB</option>
-                  </select>
-                  <i
-                    data-lucide="chevron-down"
-                    class="w-5 h-5 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
-                  ></i>
+                    Upload Payment Screenshot
+                  </label>
+                  <label
+                    class="upload-box rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary/40 transition-colors"
+                  >
+                    <i
+                      data-lucide="image-up"
+                      class="w-10 h-10 text-primary mb-3"
+                    ></i>
+                    <p class="text-white font-semibold">
+                      Upload screenshot / receipt
+                    </p>
+                    <p class="text-slate-400 text-sm mt-2">
+                      Upload clear payment proof for activation review.
+                    </p>
+                    <input type="file" class="hidden" />
+                  </label>
                 </div>
-              </div>
 
-              <div>
-                <label class="block text-sm font-semibold text-slate-200 mb-2">
-                  Transaction Hash / ID
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter transaction hash"
-                  class="form-input w-full rounded-2xl px-4 py-4 text-sm"
-                />
-              </div>
-
-              <div>
-                <label class="block text-sm font-semibold text-slate-200 mb-2">
-                  Upload Payment Screenshot
-                </label>
-                <label
-                  class="upload-box rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary/40 transition-colors"
+                <button
+                  type="button"
+                  class="w-full py-4 text-black font-bold rounded-2xl gold-gradient shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform"
                 >
-                  <i
-                    data-lucide="image-up"
-                    class="w-10 h-10 text-primary mb-3"
-                  ></i>
-                  <p class="text-white font-semibold">
-                    Upload screenshot / receipt
-                  </p>
-                  <p class="text-slate-400 text-sm mt-2">
-                    Upload clear payment proof for activation review.
-                  </p>
-                  <input type="file" class="hidden" />
-                </label>
-              </div>
-
-              <button
-                type="button"
-                class="w-full py-4 text-black font-bold rounded-2xl gold-gradient shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform"
-              >
-                Submit Activation Payment
-              </button>
-            </form>
+                  Submit Activation Payment
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
