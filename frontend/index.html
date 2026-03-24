@@ -74,6 +74,86 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
       }
 
+      .stats-single-card {
+        min-height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .stats-stack {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        text-align: center;
+      }
+
+      .stat-row {
+        opacity: 0.22;
+        transform: scale(0.88);
+        transition:
+          opacity 0.45s ease,
+          transform 0.45s ease,
+          filter 0.45s ease;
+        filter: blur(0.2px);
+      }
+
+      .stat-row.active {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+
+      .stat-row.mid {
+        opacity: 0.5;
+        transform: scale(0.93);
+      }
+
+      .stat-value {
+        color: #ffffff;
+        font-family: "Manrope", sans-serif;
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+
+      .stat-label {
+        margin-top: 0.45rem;
+        color: rgb(148 163 184);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .stat-row.active .stat-value {
+        font-size: 2.5rem;
+      }
+
+      .stat-row.active .stat-label {
+        color: #dbe3f3;
+      }
+
+      @media (max-width: 640px) {
+        .stats-single-card {
+          min-height: 190px;
+        }
+
+        .stat-value {
+          font-size: 1.7rem;
+        }
+
+        .stat-row.active .stat-value {
+          font-size: 2.1rem;
+        }
+      }
+
       .premium-panel {
         background: linear-gradient(
           180deg,
@@ -364,7 +444,7 @@
                     class="relative inline-flex rounded-full h-2 w-2 bg-accent-2"
                   ></span>
                 </span>
-                3M+ Users WorldWide
+                Premium multi-market trading experience
               </div>
 
               <h1
@@ -424,43 +504,23 @@
                       </div>
                     </div>
                     <div
-                      class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4 sm:mt-5"
+                      class="mt-4 sm:mt-5 rounded-[28px] bg-white/5 border border-white/10 p-5 sm:p-6 stats-single-card"
                     >
-                      <div
-                        class="p-4 rounded-2xl bg-white/5 border border-white/10"
-                      >
-                        <p
-                          class="text-slate-400 text-[11px] uppercase font-bold tracking-wider"
-                        >
-                          Timeframes
-                        </p>
-                        <p class="text-white text-lg font-black mt-2">
-                          20+ views
-                        </p>
-                      </div>
-                      <div
-                        class="p-4 rounded-2xl bg-white/5 border border-white/10"
-                      >
-                        <p
-                          class="text-slate-400 text-[11px] uppercase font-bold tracking-wider"
-                        >
-                          Analysis
-                        </p>
-                        <p class="text-white text-lg font-black mt-2">
-                          Advanced indicators
-                        </p>
-                      </div>
-                      <div
-                        class="p-4 rounded-2xl bg-white/5 border border-white/10"
-                      >
-                        <p
-                          class="text-slate-400 text-[11px] uppercase font-bold tracking-wider"
-                        >
-                          Execution
-                        </p>
-                        <p class="text-white text-lg font-black mt-2">
-                          Fast and focused
-                        </p>
+                      <div class="stats-stack">
+                        <div class="stat-row active">
+                          <p class="stat-value">20+</p>
+                          <p class="stat-label">Timeframes</p>
+                        </div>
+
+                        <div class="stat-row">
+                          <p class="stat-value">Advanced</p>
+                          <p class="stat-label">Indicators</p>
+                        </div>
+
+                        <div class="stat-row">
+                          <p class="stat-value">Fast</p>
+                          <p class="stat-label">Execution</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1252,6 +1312,24 @@
       );
 
       revealItems.forEach((item) => observer.observe(item));
+    </script>
+    <script>
+      const statRows = document.querySelectorAll(".stats-stack .stat-row");
+      let activeIndex = 0;
+
+      function rotateSingleStats() {
+        statRows.forEach((row) => {
+          row.classList.remove("active", "mid");
+        });
+
+        statRows[activeIndex].classList.add("active");
+        statRows[(activeIndex + 1) % statRows.length].classList.add("mid");
+
+        activeIndex = (activeIndex + 1) % statRows.length;
+      }
+
+      rotateSingleStats();
+      setInterval(rotateSingleStats, 1800);
     </script>
   </body>
 </html>
