@@ -222,6 +222,58 @@
         }
       }
     </style>
+    <style>
+      @keyframes menuFloatPulse {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+          box-shadow:
+            0 18px 40px rgba(228, 184, 79, 0.18),
+            0 0 0 0 rgba(228, 184, 79, 0.22);
+        }
+        50% {
+          transform: translateY(-6px) scale(1.04);
+          box-shadow:
+            0 24px 48px rgba(228, 184, 79, 0.28),
+            0 0 0 14px rgba(228, 184, 79, 0);
+        }
+      }
+
+      @keyframes menuIconWiggle {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-8deg);
+        }
+        50% {
+          transform: rotate(0deg);
+        }
+        75% {
+          transform: rotate(8deg);
+        }
+      }
+
+      .menu-attention {
+        animation: menuFloatPulse 2.2s ease-in-out infinite;
+      }
+
+      .menu-attention i,
+      .menu-attention svg {
+        animation: menuIconWiggle 2.2s ease-in-out infinite;
+        transform-origin: center;
+      }
+
+      .menu-attention:hover {
+        animation-play-state: paused;
+      }
+
+      .menu-attention:hover i,
+      .menu-attention:hover svg {
+        animation-play-state: paused;
+      }
+    </style>
   </head>
 
   <body class="bg-background-dark text-white font-display">
@@ -284,7 +336,7 @@
         <div class="relative">
           <button
             id="mobileSidebarToggle"
-            class="lg:hidden fixed bottom-4 right-4 xs:bottom-5 xs:right-5 z-50 h-12 w-12 xs:h-14 xs:w-14 rounded-full gold-gradient flex items-center justify-center shadow-2xl shadow-primary/20"
+            class="menu-attention lg:hidden fixed bottom-4 right-4 xs:bottom-5 xs:right-5 z-50 h-12 w-12 xs:h-14 xs:w-14 rounded-full gold-gradient flex items-center justify-center shadow-2xl shadow-primary/20"
             aria-label="Open menu"
           >
             <i data-lucide="menu" class="w-5 h-5 xs:w-6 xs:h-6 text-black"></i>
