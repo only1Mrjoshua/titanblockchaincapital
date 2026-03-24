@@ -814,6 +814,16 @@
           if (e.target === walletModal) closeModal();
         });
       }
+
+      function openModal() {
+        document.getElementById("modal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        document.getElementById("modal").classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
     </script>
   </body>
 </html>
