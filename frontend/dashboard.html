@@ -98,6 +98,19 @@
         overflow: hidden;
       }
 
+      #chatMessages::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #chatMessages::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+      }
+
+      .chat-modal-open {
+        overflow: hidden;
+      }
+
       .premium-panel {
         background: linear-gradient(
           180deg,
@@ -344,6 +357,7 @@
 
           <!-- Live Chat Button -->
           <button
+            id="openChatModal"
             class="lg:hidden fixed bottom-4 right-4 xs:bottom-6 xs:right-5 z-50 h-12 w-12 xs:h-14 xs:w-14 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center shadow-xl hover:bg-white/20 transition-all"
             aria-label="Live chat"
           >
@@ -936,6 +950,164 @@
       </div>
     </main>
 
+    <!-- Chat Modal -->
+    <div
+      id="chatModal"
+      class="fixed inset-0 z-[70] bg-black/70 backdrop-blur-[3px] opacity-0 invisible transition-all duration-300"
+    >
+      <div
+        class="min-h-screen flex items-end sm:items-center justify-center p-3 xs:p-4 sm:p-6"
+      >
+        <div
+          id="chatModalCard"
+          class="w-full max-w-md premium-panel premium-border rounded-3xl overflow-hidden transform translate-y-8 sm:translate-y-4 scale-[0.98] opacity-0 transition-all duration-300 shadow-2xl"
+        >
+          <!-- Header -->
+          <div class="px-4 xs:px-5 sm:px-6 py-4 border-b border-white/10">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex items-center gap-3 min-w-0">
+                <div
+                  class="h-11 w-11 rounded-2xl gold-gradient flex items-center justify-center shrink-0"
+                >
+                  <i data-lucide="headset" class="w-5 h-5 text-black"></i>
+                </div>
+
+                <div class="min-w-0">
+                  <p
+                    class="text-white text-base sm:text-lg font-black truncate"
+                  >
+                    Live Support
+                  </p>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span
+                      class="badge-dot h-2.5 w-2.5 rounded-full bg-emerald-400 shrink-0"
+                    ></span>
+                    <p
+                      class="text-emerald-400 text-xs sm:text-sm font-semibold"
+                    >
+                      Agent online
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                id="closeChatModal"
+                class="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-white/10 transition-all shrink-0"
+                aria-label="Close chat"
+              >
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div
+            id="chatMessages"
+            class="px-4 xs:px-5 sm:px-6 py-4 space-y-4 h-[360px] xs:h-[400px] overflow-y-auto bg-white/[0.02]"
+          >
+            <!-- Agent Message -->
+            <div class="flex items-start gap-3">
+              <div
+                class="h-9 w-9 rounded-xl gold-gradient flex items-center justify-center shrink-0"
+              >
+                <i data-lucide="user-round" class="w-4 h-4 text-black"></i>
+              </div>
+
+              <div class="max-w-[82%]">
+                <div
+                  class="rounded-2xl rounded-tl-md bg-white/8 border border-white/10 px-4 py-3"
+                >
+                  <p class="text-white text-sm leading-6">
+                    Hello, welcome to TitanBlockchainCapital support. How can an
+                    agent assist you today?
+                  </p>
+                </div>
+                <p class="text-slate-500 text-[11px] mt-1 ml-1">
+                  Agent • just now
+                </p>
+              </div>
+            </div>
+
+            <!-- User Example -->
+            <div class="flex items-start justify-end gap-3">
+              <div class="max-w-[82%]">
+                <div class="rounded-2xl rounded-tr-md gold-gradient px-4 py-3">
+                  <p class="text-black text-sm font-medium leading-6">
+                    I want to ask about my withdrawal status.
+                  </p>
+                </div>
+                <p class="text-slate-500 text-[11px] mt-1 text-right mr-1">
+                  You • just now
+                </p>
+              </div>
+            </div>
+
+            <!-- Agent Example -->
+            <div class="flex items-start gap-3">
+              <div
+                class="h-9 w-9 rounded-xl gold-gradient flex items-center justify-center shrink-0"
+              >
+                <i data-lucide="user-round" class="w-4 h-4 text-black"></i>
+              </div>
+
+              <div class="max-w-[82%]">
+                <div
+                  class="rounded-2xl rounded-tl-md bg-white/8 border border-white/10 px-4 py-3"
+                >
+                  <p class="text-white text-sm leading-6">
+                    Kindly send your registered email or transaction reference
+                    and an agent will check it for you.
+                  </p>
+                </div>
+                <p class="text-slate-500 text-[11px] mt-1 ml-1">
+                  Agent • just now
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input Area -->
+          <div
+            class="px-4 xs:px-5 sm:px-6 py-4 border-t border-white/10 bg-white/[0.03]"
+          >
+            <form id="chatForm" class="space-y-3">
+              <div class="relative">
+                <textarea
+                  id="chatInput"
+                  rows="2"
+                  placeholder="Type your message..."
+                  class="w-full rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 px-4 py-3 pr-14 outline-none focus:border-primary/40 focus:ring-0 resize-none"
+                ></textarea>
+
+                <button
+                  type="submit"
+                  class="absolute bottom-3 right-3 h-10 w-10 rounded-xl gold-gradient flex items-center justify-center text-black shadow-lg shadow-primary/20 hover:scale-[1.03] active:scale-[0.96] transition-all"
+                  aria-label="Send message"
+                >
+                  <i data-lucide="send-horizontal" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center justify-between gap-3 flex-wrap">
+                <p class="text-slate-500 text-xs">
+                  Messages are typically answered within a few minutes.
+                </p>
+
+                <button
+                  type="button"
+                  class="inline-flex items-center gap-2 text-xs font-semibold text-primary hover:text-primary/80 transition-colors"
+                >
+                  <i data-lucide="paperclip" class="w-4 h-4"></i>
+                  Attach file
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       lucide.createIcons();
 
@@ -972,6 +1144,130 @@
 
       if (mobileSidebarOverlay) {
         mobileSidebarOverlay.addEventListener("click", closeSidebar);
+      }
+
+      // Chat modal
+      const openChatModalBtn = document.getElementById("openChatModal");
+      const closeChatModalBtn = document.getElementById("closeChatModal");
+      const chatModal = document.getElementById("chatModal");
+      const chatModalCard = document.getElementById("chatModalCard");
+      const chatForm = document.getElementById("chatForm");
+      const chatInput = document.getElementById("chatInput");
+      const chatMessages = document.getElementById("chatMessages");
+
+      function openChatModal() {
+        if (!chatModal || !chatModalCard) return;
+
+        chatModal.classList.remove("opacity-0", "invisible");
+        chatModal.classList.add("opacity-100", "visible");
+
+        setTimeout(() => {
+          chatModalCard.classList.remove(
+            "translate-y-8",
+            "sm:translate-y-4",
+            "scale-[0.98]",
+            "opacity-0",
+          );
+          chatModalCard.classList.add(
+            "translate-y-0",
+            "scale-100",
+            "opacity-100",
+          );
+        }, 10);
+
+        document.body.classList.add("chat-modal-open");
+      }
+
+      function closeChatModal() {
+        if (!chatModal || !chatModalCard) return;
+
+        chatModalCard.classList.remove(
+          "translate-y-0",
+          "scale-100",
+          "opacity-100",
+        );
+        chatModalCard.classList.add(
+          "translate-y-8",
+          "sm:translate-y-4",
+          "scale-[0.98]",
+          "opacity-0",
+        );
+
+        chatModal.classList.remove("opacity-100", "visible");
+        chatModal.classList.add("opacity-0", "invisible");
+
+        document.body.classList.remove("chat-modal-open");
+      }
+
+      if (openChatModalBtn) {
+        openChatModalBtn.addEventListener("click", openChatModal);
+      }
+
+      if (closeChatModalBtn) {
+        closeChatModalBtn.addEventListener("click", closeChatModal);
+      }
+
+      if (chatModal) {
+        chatModal.addEventListener("click", function (e) {
+          if (e.target === chatModal) {
+            closeChatModal();
+          }
+        });
+      }
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeChatModal();
+        }
+      });
+
+      if (chatForm) {
+        chatForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const message = chatInput.value.trim();
+          if (!message) return;
+
+          const wrapper = document.createElement("div");
+          wrapper.className = "flex items-start justify-end gap-3";
+
+          wrapper.innerHTML = `
+        <div class="max-w-[82%]">
+          <div class="rounded-2xl rounded-tr-md gold-gradient px-4 py-3">
+            <p class="text-black text-sm font-medium leading-6"></p>
+          </div>
+          <p class="text-slate-500 text-[11px] mt-1 text-right mr-1">You • just now</p>
+        </div>
+      `;
+
+          wrapper.querySelector("p.text-black").textContent = message;
+          chatMessages.appendChild(wrapper);
+          chatInput.value = "";
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+
+          setTimeout(() => {
+            const reply = document.createElement("div");
+            reply.className = "flex items-start gap-3";
+
+            reply.innerHTML = `
+          <div class="h-9 w-9 rounded-xl gold-gradient flex items-center justify-center shrink-0">
+            <i data-lucide="user-round" class="w-4 h-4 text-black"></i>
+          </div>
+          <div class="max-w-[82%]">
+            <div class="rounded-2xl rounded-tl-md bg-white/8 border border-white/10 px-4 py-3">
+              <p class="text-white text-sm leading-6">
+                Thank you for your message. An agent will respond shortly.
+              </p>
+            </div>
+            <p class="text-slate-500 text-[11px] mt-1 ml-1">Agent • just now</p>
+          </div>
+        `;
+
+            chatMessages.appendChild(reply);
+            lucide.createIcons();
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+          }, 700);
+        });
       }
     </script>
   </body>
