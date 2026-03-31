@@ -276,17 +276,31 @@
                   >
                     Password
                   </label>
+
                   <div class="relative">
+                    <!-- LEFT ICON -->
                     <span
                       class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     >
                       <i data-lucide="lock" class="w-5 h-5"></i>
                     </span>
+
+                    <!-- INPUT -->
                     <input
+                      id="passwordInput"
                       type="password"
                       placeholder="Enter your password"
-                      class="form-input w-full rounded-2xl pl-12 pr-4 py-4 text-sm"
+                      class="form-input w-full rounded-2xl pl-12 pr-12 py-4 text-sm"
                     />
+
+                    <!-- TOGGLE ICON -->
+                    <button
+                      type="button"
+                      id="togglePassword"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition"
+                    >
+                      <i data-lucide="eye" class="w-5 h-5"></i>
+                    </button>
                   </div>
                 </div>
 
@@ -343,5 +357,6 @@
     <script>
       lucide.createIcons();
     </script>
+    <script src="js/passwordToggle.js"></script>
   </body>
 </html>

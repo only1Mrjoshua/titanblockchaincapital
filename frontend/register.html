@@ -335,10 +335,18 @@
                       <i data-lucide="lock" class="w-5 h-5"></i>
                     </span>
                     <input
+                      id="registerPasswordInput"
                       type="password"
                       placeholder="Enter password"
-                      class="form-input w-full rounded-2xl pl-12 pr-4 py-4 text-sm"
+                      class="form-input w-full rounded-2xl pl-12 pr-12 py-4 text-sm"
                     />
+                    <button
+                      type="button"
+                      id="toggleRegisterPassword"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition"
+                    >
+                      <i data-lucide="eye" class="w-5 h-5"></i>
+                    </button>
                   </div>
                 </div>
 
@@ -355,10 +363,18 @@
                       <i data-lucide="shield-check" class="w-5 h-5"></i>
                     </span>
                     <input
+                      id="registerConfirmPasswordInput"
                       type="password"
                       placeholder="Confirm password"
-                      class="form-input w-full rounded-2xl pl-12 pr-4 py-4 text-sm"
+                      class="form-input w-full rounded-2xl pl-12 pr-12 py-4 text-sm"
                     />
+                    <button
+                      type="button"
+                      id="toggleRegisterConfirmPassword"
+                      class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition"
+                    >
+                      <i data-lucide="eye" class="w-5 h-5"></i>
+                    </button>
                   </div>
                 </div>
 
@@ -410,5 +426,6 @@
     <script>
       lucide.createIcons();
     </script>
+    <script src="js/passwordToggle.js"></script>
   </body>
 </html>
