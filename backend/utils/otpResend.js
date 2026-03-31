@@ -1,469 +1,409 @@
+import crypto from 'crypto';
 import { Resend } from 'resend';
 
-// Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-/**
- * Generate secure 6-digit OTP using Math.random
- * @returns {string} 6-digit OTP
- */
+const BRAND_NAME = 'Titan Blockchain Capital';
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'support@titanblockchaincapital.com';
+const FROM_VERIFY_EMAIL =
+  process.env.RESEND_FROM_VERIFY || `Titan Blockchain Capital <verify@titanblockchaincapital.com>`;
+const FROM_NOTIFICATION_EMAIL =
+  process.env.RESEND_FROM_NOTIFICATIONS || `Titan Blockchain Capital <notifications@titanblockchaincapital.com>`;
+const LOGO_URL =
+  process.env.BRAND_LOGO_URL || 'https://titanblockchaincapital.com/images/logo.png';
+const WEBSITE_URL =
+  process.env.WEBSITE_URL || 'https://titanblockchaincapital.com';
+
+const escapeHtml = (value = '') =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
 const generateOTP = () => {
-  // Generate random 6-digit number (100000 to 999999)
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  return crypto.randomInt(100000, 1000000).toString();
 };
 
-/**
- * Alternative OTP generation using string manipulation
- * @returns {string} 6-digit OTP
- */
-const generateOTPAlt = () => {
-  return Math.random().toString().slice(2, 8);
-};
-
-/**
- * Generate OTP expiry date (15 minutes from now)
- * @returns {Date} Expiry date
- */
 const getOTPExpiry = () => {
   return new Date(Date.now() + 15 * 60 * 1000);
 };
 
-/**
- * Send email verification with OTP
- * @param {string} email - Recipient email
- * @param {string} otp - One-time password
- * @param {string} fullName - User's full name
- * @param {string} type - Type of email (verification/resend)
- * @returns {Promise<object>} Email sending result
- */
-const sendEmailOTP = async (email, otp, fullName, type = 'verification') => {
-  const year = new Date().getFullYear();
-  const supportEmail = 'verification@titanblockchaincapital.com';
-  
-  const templates = {
-    verification: {
-      subject: '🔐 Verify Your Email | Titan Blockchain Capital',
-      greeting: 'Welcome to Titan Blockchain Capital'
-    },
-    resend: {
-      subject: '🔄 New Email Verification Code | Titan Blockchain Capital',
-      greeting: 'Verification Code Refresh'
-    }
-  };
-  
-  const template = templates[type] || templates.verification;
-  
-  const html = `
+const buildBaseEmailLayout = ({
+  title,
+  eyebrow,
+  heading,
+  intro,
+  bodyHtml,
+  footerNote,
+}) => {
+  const safeTitle = escapeHtml(title);
+  const safeEyebrow = escapeHtml(eyebrow);
+  const safeHeading = escapeHtml(heading);
+  const safeIntro = escapeHtml(intro);
+  const safeFooterNote = escapeHtml(
+    footerNote || 'Institutional-Grade Digital Asset Management'
+  );
+
+  return `
     <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${template.subject}</title>
-      <style>
-        body {
-          margin: 0;
-          padding: 0;
-          background-color: #f5f7fa;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        }
-        .container {
-          max-width: 560px;
-          margin: 40px auto;
-          background: #ffffff;
-          border-radius: 20px;
-          overflow: hidden;
-          box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
-        }
-        .header {
-          background: linear-gradient(135deg, #0A1C2F 0%, #0F2A3F 100%);
-          padding: 48px 40px;
-          text-align: center;
-        }
-        .logo {
-          font-size: 32px;
-          font-weight: 700;
-          color: #FFD966;
-          margin-bottom: 12px;
-          letter-spacing: -0.5px;
-        }
-        .tagline {
-          color: rgba(255,255,255,0.8);
-          font-size: 14px;
-        }
-        .content {
-          padding: 48px 40px;
-        }
-        .greeting {
-          font-size: 24px;
-          font-weight: 600;
-          color: #1A2C3E;
-          margin-bottom: 16px;
-        }
-        .message {
-          color: #4A5B6E;
-          line-height: 1.6;
-          margin-bottom: 32px;
-        }
-        .otp-container {
-          background: linear-gradient(135deg, #F8FBFE 0%, #F0F4F9 100%);
-          border-radius: 16px;
-          padding: 32px;
-          text-align: center;
-          margin: 32px 0;
-          border: 1px solid #E2E8F0;
-        }
-        .otp-code {
-          font-family: 'SF Mono', 'Monaco', monospace;
-          font-size: 40px;
-          font-weight: 700;
-          letter-spacing: 12px;
-          color: #0F2A3F;
-          background: white;
-          padding: 20px;
-          border-radius: 12px;
-          display: inline-block;
-        }
-        .expiry {
-          color: #E67E22;
-          font-size: 13px;
-          margin-top: 16px;
-        }
-        .security-note {
-          background: #FEF9E6;
-          border-left: 3px solid #FFB347;
-          padding: 16px 20px;
-          border-radius: 12px;
-          margin: 24px 0;
-          font-size: 13px;
-          color: #8B6B3D;
-        }
-        .footer {
-          background: #F8FAFD;
-          padding: 32px 40px;
-          text-align: center;
-          border-top: 1px solid #E8EDF2;
-          font-size: 12px;
-          color: #8A99A8;
-        }
-        .link {
-          color: #0F2A3F;
-          text-decoration: none;
-        }
-        @media (max-width: 600px) {
-          .container { margin: 20px; }
-          .content { padding: 32px 24px; }
-          .otp-code { font-size: 28px; letter-spacing: 6px; }
-        }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="header">
-          <div class="logo">⚡ TITAN</div>
-          <div class="tagline">Blockchain Capital</div>
-        </div>
-        <div class="content">
-          <div class="greeting">${template.greeting}${fullName ? `, ${fullName}` : ''}</div>
-          <div class="message">
-            Thank you for choosing Titan Blockchain Capital. To secure your account and complete registration, please verify your email address using the code below.
-          </div>
-          <div class="otp-container">
-            <div class="otp-code">${otp}</div>
-            <div class="expiry">⏰ This code expires in 15 minutes</div>
-          </div>
-          <div class="security-note">
-            🔒 <strong>Security First</strong><br>
-            Never share this code with anyone. Titan Blockchain Capital will never ask for your verification code.
-          </div>
-          <div style="margin-top: 24px;">
-            <p style="color: #8A99A8; font-size: 13px; margin: 0;">Need assistance?</p>
-            <a href="mailto:${supportEmail}" style="color: #0F2A3F; text-decoration: none; font-weight: 500;">${supportEmail}</a>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>${safeTitle}</title>
+      </head>
+      <body style="margin:0;padding:0;background-color:#eef2f7;font-family:Inter,Arial,sans-serif;color:#0f172a;">
+        <div style="padding:32px 16px;background-color:#eef2f7;">
+          <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(15,23,42,0.12);">
+            <div style="background:linear-gradient(135deg,#060913 0%,#10172a 60%,#151f36 100%);padding:40px 32px;text-align:center;">
+              <div style="margin-bottom:16px;">
+                <img
+                  src="${escapeHtml(LOGO_URL)}"
+                  alt="${escapeHtml(BRAND_NAME)}"
+                  style="display:block;margin:0 auto 14px auto;width:64px;height:64px;object-fit:contain;border-radius:16px;background:rgba(255,255,255,0.04);padding:6px;"
+                />
+                <div style="font-family:Manrope,Arial,sans-serif;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#e4b84f;font-weight:800;">
+                  ${safeEyebrow}
+                </div>
+              </div>
+              <div style="font-family:Manrope,Arial,sans-serif;font-size:30px;line-height:1.2;font-weight:800;color:#ffffff;margin:0 0 10px 0;">
+                ${safeHeading}
+              </div>
+              <div style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.78);max-width:420px;margin:0 auto;">
+                ${safeIntro}
+              </div>
+            </div>
+
+            <div style="padding:36px 32px;">
+              ${bodyHtml}
+            </div>
+
+            <div style="border-top:1px solid #e2e8f0;background:#f8fafc;padding:24px 32px;text-align:center;">
+              <div style="font-size:12px;line-height:1.8;color:#64748b;">
+                © ${new Date().getFullYear()} ${escapeHtml(BRAND_NAME)}. All rights reserved.
+              </div>
+              <div style="font-size:12px;line-height:1.8;color:#64748b;">
+                ${safeFooterNote}
+              </div>
+              <div style="font-size:12px;line-height:1.8;color:#64748b;">
+                Need help?
+                <a href="mailto:${escapeHtml(SUPPORT_EMAIL)}" style="color:#0f172a;text-decoration:none;font-weight:700;">
+                  ${escapeHtml(SUPPORT_EMAIL)}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="footer">
-          <p>© ${year} Titan Blockchain Capital. All rights reserved.</p>
-          <p style="margin-top: 12px;">Institutional-Grade Digital Asset Management</p>
-        </div>
-      </div>
-    </body>
+      </body>
     </html>
   `;
-  
+};
+
+const sendEmailOTP = async (email, otp, fullName = '', type = 'verification') => {
+  const safeName = escapeHtml(fullName || 'there');
+
+  const templates = {
+    verification: {
+      subject: 'Verify Your Titan Blockchain Capital Account',
+      eyebrow: 'Secure Verification',
+      heading: 'Complete your account verification',
+      intro:
+        'Use the one-time code below to confirm your email address and continue your secure onboarding.',
+    },
+    resend: {
+      subject: 'Your New Titan Verification Code',
+      eyebrow: 'Verification Code Refresh',
+      heading: 'Here is your new verification code',
+      intro:
+        'A fresh one-time code has been issued for your account. Use it below to continue your registration securely.',
+    },
+  };
+
+  const template = templates[type] || templates.verification;
+
+  const html = buildBaseEmailLayout({
+    title: template.subject,
+    eyebrow: template.eyebrow,
+    heading: template.heading,
+    intro: template.intro,
+    bodyHtml: `
+      <div style="font-size:16px;line-height:1.8;color:#334155;margin-bottom:18px;">
+        Hello <strong style="color:#0f172a;">${safeName}</strong>,
+      </div>
+
+      <div style="font-size:15px;line-height:1.8;color:#475569;margin-bottom:24px;">
+        To continue your secure onboarding, please use the verification code below. This code is valid for <strong>15 minutes</strong>.
+      </div>
+
+      <div style="margin:28px 0;padding:28px;background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);border:1px solid #e2e8f0;border-radius:20px;text-align:center;">
+        <div style="font-size:12px;line-height:1.6;letter-spacing:0.18em;text-transform:uppercase;color:#64748b;font-weight:800;margin-bottom:12px;">
+          One-Time Verification Code
+        </div>
+        <div style="display:inline-block;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:18px 24px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:38px;line-height:1;font-weight:800;letter-spacing:10px;color:#0f172a;">
+          ${escapeHtml(otp)}
+        </div>
+        <div style="margin-top:14px;font-size:13px;line-height:1.7;color:#b45309;font-weight:700;">
+          Expires in 15 minutes
+        </div>
+      </div>
+
+      <div style="margin:24px 0;padding:18px 18px;border-left:4px solid #e4b84f;background:#fff8e7;border-radius:14px;">
+        <div style="font-size:13px;line-height:1.8;color:#7c5a10;">
+          <strong>Security Notice:</strong> Never share this code with anyone. ${escapeHtml(
+            BRAND_NAME
+          )} will never ask you for your verification code by phone, email, or chat.
+        </div>
+      </div>
+
+      <div style="font-size:14px;line-height:1.8;color:#64748b;">
+        If you did not request this verification, you can safely ignore this email or contact support.
+      </div>
+    `,
+  });
+
   const text = `
-    TITAN BLOCKCHAIN CAPITAL - Email Verification
-    
-    ${template.greeting}${fullName ? `, ${fullName}` : ''}
-    
-    Your verification code is: ${otp}
-    
-    This code will expire in 15 minutes.
-    
-    Security Notice: Never share this code with anyone.
-    
-    Need help? Contact ${supportEmail}
-    
-    © ${year} Titan Blockchain Capital
-  `;
-  
+${BRAND_NAME}
+
+Hello ${fullName || 'there'},
+
+Your verification code is: ${otp}
+
+This code expires in 15 minutes.
+
+Security Notice:
+Never share this code with anyone.
+
+Need help? Contact ${SUPPORT_EMAIL}
+
+${WEBSITE_URL}
+  `.trim();
+
   try {
     const { data, error } = await resend.emails.send({
-      from: `Titan Blockchain Capital <verify@titanblockchaincapital.com>`,
+      from: FROM_VERIFY_EMAIL,
       to: [email],
       subject: template.subject,
-      html: html,
-      text: text,
+      html,
+      text,
       headers: {
         'X-Priority': '1',
         'X-Mailer': 'Titan Verification System',
-        'X-Entity-Ref-ID': `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-      }
+        'X-Entity-Ref-ID': `${Date.now()}-${crypto.randomBytes(6).toString('hex')}`,
+      },
     });
-    
-    if (error) throw error;
-    return { success: true, messageId: data?.id };
+
+    if (error) {
+      throw new Error(error.message || 'Unable to send verification email');
+    }
+
+    return {
+      success: true,
+      messageId: data?.id || null,
+    };
   } catch (error) {
-    console.error('Email delivery failed:', error);
+    console.error('❌ OTP email delivery failed:', error);
     throw new Error('Unable to send verification email. Please try again.');
   }
 };
 
-/**
- * Send SMS verification with OTP via Twilio
- * @param {string} phoneNumber - Recipient phone number
- * @param {string} otp - One-time password
- * @param {string} countryCode - Country code (default: +1)
- * @returns {Promise<object>} SMS sending result
- */
 const sendSMSOTP = async (phoneNumber, otp, countryCode = '+1') => {
   try {
-    // Dynamic import for Twilio (optional - only if you want to use SMS)
     let twilioClient;
+
     try {
       const twilio = await import('twilio');
       twilioClient = twilio.default(
-        process.env.TWILIO_ACCOUNT_SID, 
+        process.env.TWILIO_ACCOUNT_SID,
         process.env.TWILIO_AUTH_TOKEN
       );
     } catch (error) {
-      console.warn('Twilio not configured, SMS will be logged only');
-      console.log(`📱 SMS would be sent to ${countryCode}${phoneNumber} with OTP: ${otp}`);
-      return { success: true, simulated: true, message: 'SMS would be sent here' };
+      console.warn('⚠️ Twilio not configured. SMS delivery simulated only.');
+      console.log(`📱 SMS OTP -> ${countryCode}${phoneNumber}: ${otp}`);
+      return {
+        success: true,
+        simulated: true,
+        message: 'SMS delivery simulated',
+      };
     }
-    
-    const fullPhoneNumber = `${countryCode}${phoneNumber.replace(/\D/g, '')}`;
-    
+
+    const sanitizedPhone = String(phoneNumber).replace(/\D/g, '');
+    const fullPhoneNumber = `${countryCode}${sanitizedPhone}`;
+
     const message = await twilioClient.messages.create({
-      body: `🔐 TITAN BLOCKCHAIN CAPITAL\n\nYour verification code is: ${otp}\nValid for 15 minutes.\n\nNever share this code with anyone.`,
+      body: `${BRAND_NAME}\n\nYour verification code is: ${otp}\nValid for 15 minutes.\nNever share this code with anyone.`,
       from: process.env.TWILIO_PHONE_NUMBER,
-      to: fullPhoneNumber
+      to: fullPhoneNumber,
     });
-    
-    return { success: true, sid: message.sid };
+
+    return {
+      success: true,
+      sid: message.sid,
+    };
   } catch (error) {
-    console.error('SMS delivery failed:', error);
+    console.error('❌ SMS delivery failed:', error);
     throw new Error('Unable to send SMS verification. Please try again.');
   }
 };
 
-/**
- * Send payment status email using Resend
- * @param {Object} params - Email parameters
- * @returns {Promise<object>} Email sending result
- */
-const sendPaymentEmail = async ({ to, fullName, type, amount, dashboardUrl, reason }) => {
-  const year = new Date().getFullYear();
-  const supportEmail = 'support@titanblockchaincapital.com';
-  
-  const subjects = {
-    submitted: '📩 Payment Receipt Received – Titan Blockchain Capital',
-    approved: '✅ Payment Approved – Welcome to Titan Blockchain Capital',
-    rejected: '❌ Payment Rejected – Titan Blockchain Capital',
+const sendPaymentEmail = async ({
+  to,
+  fullName = '',
+  type,
+  amount,
+  dashboardUrl,
+  reason,
+}) => {
+  const safeName = escapeHtml(fullName || 'there');
+  const safeAmount =
+    amount !== undefined && amount !== null ? Number(amount).toLocaleString() : '0';
+  const safeDashboardUrl = dashboardUrl || `${WEBSITE_URL}/user-dashboard`;
+  const safeReason = escapeHtml(reason || 'Your payment could not be verified.');
+
+  const templates = {
+    submitted: {
+      subject: 'Payment Receipt Received – Titan Blockchain Capital',
+      eyebrow: 'Payment Update',
+      heading: 'Your payment receipt has been received',
+      intro:
+        'Your registration payment proof has been submitted successfully and is now awaiting review.',
+      bodyHtml: `
+        <div style="font-size:16px;line-height:1.8;color:#334155;margin-bottom:18px;">
+          Hello <strong style="color:#0f172a;">${safeName}</strong>,
+        </div>
+        <div style="font-size:15px;line-height:1.8;color:#475569;margin-bottom:20px;">
+          We have received your registration payment receipt for <strong>$${safeAmount}</strong>.
+        </div>
+        <div style="margin:22px 0;padding:18px;border-left:4px solid #e4b84f;background:#fff8e7;border-radius:14px;">
+          <div style="font-size:14px;line-height:1.8;color:#7c5a10;">
+            Your payment is currently <strong>under review</strong> by our team. You will be notified once the review is complete.
+          </div>
+        </div>
+        <div style="font-size:14px;line-height:1.8;color:#64748b;">
+          If you did not make this submission, please contact support immediately.
+        </div>
+      `,
+      text: `We have received your registration payment receipt for $${safeAmount}. Your payment is currently under review.`,
+    },
+    approved: {
+      subject: 'Payment Approved – Welcome to Titan Blockchain Capital',
+      eyebrow: 'Payment Approved',
+      heading: 'Your registration payment has been approved',
+      intro:
+        'Your account has successfully moved forward in the onboarding process.',
+      bodyHtml: `
+        <div style="font-size:16px;line-height:1.8;color:#334155;margin-bottom:18px;">
+          Hello <strong style="color:#0f172a;">${safeName}</strong>,
+        </div>
+        <div style="font-size:15px;line-height:1.8;color:#475569;margin-bottom:20px;">
+          Great news. Your registration payment of <strong>$${safeAmount}</strong> has been <strong>approved</strong>.
+        </div>
+        <div style="font-size:15px;line-height:1.8;color:#475569;margin-bottom:28px;">
+          You can now proceed to your dashboard and continue using your account.
+        </div>
+        <div style="text-align:center;margin:28px 0;">
+          <a
+            href="${escapeHtml(safeDashboardUrl)}"
+            style="display:inline-block;background:linear-gradient(135deg,#f6dea0 0%,#e4b84f 48%,#b47a15 100%);color:#0b0f19;text-decoration:none;font-weight:800;padding:14px 28px;border-radius:14px;"
+          >
+            Go to Dashboard
+          </a>
+        </div>
+        <div style="font-size:13px;line-height:1.8;color:#64748b;">
+          If the button above does not work, use this link:<br />
+          <a href="${escapeHtml(safeDashboardUrl)}" style="color:#0f172a;text-decoration:none;font-weight:700;">
+            ${escapeHtml(safeDashboardUrl)}
+          </a>
+        </div>
+      `,
+      text: `Your registration payment of $${safeAmount} has been approved. Dashboard: ${safeDashboardUrl}`,
+    },
+    rejected: {
+      subject: 'Payment Rejected – Titan Blockchain Capital',
+      eyebrow: 'Payment Update',
+      heading: 'Your payment could not be approved',
+      intro:
+        'We were unable to verify the submitted payment details at this time.',
+      bodyHtml: `
+        <div style="font-size:16px;line-height:1.8;color:#334155;margin-bottom:18px;">
+          Hello <strong style="color:#0f172a;">${safeName}</strong>,
+        </div>
+        <div style="font-size:15px;line-height:1.8;color:#475569;margin-bottom:20px;">
+          Unfortunately, your registration payment of <strong>$${safeAmount}</strong> could not be verified.
+        </div>
+        <div style="margin:22px 0;padding:18px;border-left:4px solid #ef4444;background:#fef2f2;border-radius:14px;">
+          <div style="font-size:14px;line-height:1.8;color:#991b1b;">
+            <strong>Reason:</strong> ${safeReason}
+          </div>
+        </div>
+        <div style="font-size:14px;line-height:1.8;color:#64748b;">
+          Please review your payment details and submit a new receipt if necessary. If you believe this was a mistake, contact support.
+        </div>
+      `,
+      text: `Your registration payment of $${safeAmount} could not be verified. Reason: ${reason || 'Your payment could not be verified.'}`,
+    },
   };
 
-  const getHtmlBody = () => {
-    switch(type) {
-      case 'submitted':
-        return `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${subjects.submitted}</title>
-            <style>
-              body { margin: 0; padding: 0; background-color: #f5f7fa; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; }
-              .container { max-width: 560px; margin: 40px auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1); }
-              .header { background: linear-gradient(135deg, #0A1C2F 0%, #0F2A3F 100%); padding: 40px; text-align: center; }
-              .logo { font-size: 28px; font-weight: 700; color: #FFD966; margin-bottom: 8px; }
-              .content { padding: 40px; }
-              h2 { color: #e4b84f; margin-top: 0; }
-              .button { background: linear-gradient(135deg, #f6dea0 0%, #e4b84f 48%, #b47a15 100%); color: #000; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; }
-              .footer { background: #F8FAFD; padding: 24px; text-align: center; font-size: 12px; color: #8A99A8; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <div class="logo">⚡ TITAN</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 14px;">Blockchain Capital</div>
-              </div>
-              <div class="content">
-                <h2>📩 Payment Receipt Received</h2>
-                <p>Hi <strong>${fullName}</strong>,</p>
-                <p>We have received your registration payment receipt of <strong>$${amount}</strong>.</p>
-                <p>Your payment is currently <strong>under review</strong> by our admin team. You will be notified once it has been approved.</p>
-                <div style="background: #FEF9E6; border-left: 3px solid #FFB347; padding: 16px; margin: 24px 0; border-radius: 8px;">
-                  <p style="margin: 0; color: #8B6B3D; font-size: 13px;">🔒 <strong>Security Note:</strong> Never share your payment details with anyone.</p>
-                </div>
-                <p style="color: #888; font-size: 13px;">If you did not make this payment, please contact our support team immediately.</p>
-              </div>
-              <div class="footer">
-                <p>© ${year} Titan Blockchain Capital. All rights reserved.</p>
-                <p><a href="mailto:${supportEmail}" style="color: #0F2A3F;">${supportEmail}</a></p>
-              </div>
-            </div>
-          </body>
-          </html>
-        `;
-      
-      case 'approved':
-        return `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${subjects.approved}</title>
-            <style>
-              body { margin: 0; padding: 0; background-color: #f5f7fa; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; }
-              .container { max-width: 560px; margin: 40px auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1); }
-              .header { background: linear-gradient(135deg, #0A1C2F 0%, #0F2A3F 100%); padding: 40px; text-align: center; }
-              .logo { font-size: 28px; font-weight: 700; color: #FFD966; margin-bottom: 8px; }
-              .content { padding: 40px; }
-              h2 { color: #22c55e; margin-top: 0; }
-              .button { background: linear-gradient(135deg, #f6dea0 0%, #e4b84f 48%, #b47a15 100%); color: #000; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; }
-              .footer { background: #F8FAFD; padding: 24px; text-align: center; font-size: 12px; color: #8A99A8; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <div class="logo">⚡ TITAN</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 14px;">Blockchain Capital</div>
-              </div>
-              <div class="content">
-                <h2>✅ Payment Approved!</h2>
-                <p>Hi <strong>${fullName}</strong>,</p>
-                <p>Great news! Your registration payment of <strong>$${amount}</strong> has been <strong>approved</strong> and your account is now fully verified.</p>
-                <p>You can now access your dashboard and start using all features of Titan Blockchain Capital.</p>
-                <div style="text-align: center; margin: 30px 0;">
-                  <a href="${dashboardUrl}" class="button">Go to Dashboard</a>
-                </div>
-                <p style="color: #888; font-size: 13px;">If the button doesn't work, copy and paste this link into your browser:<br/>
-                  <a href="${dashboardUrl}" style="color: #e4b84f;">${dashboardUrl}</a>
-                </p>
-              </div>
-              <div class="footer">
-                <p>© ${year} Titan Blockchain Capital. All rights reserved.</p>
-                <p><a href="mailto:${supportEmail}" style="color: #0F2A3F;">${supportEmail}</a></p>
-              </div>
-            </div>
-          </body>
-          </html>
-        `;
-      
-      case 'rejected':
-        return `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${subjects.rejected}</title>
-            <style>
-              body { margin: 0; padding: 0; background-color: #f5f7fa; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; }
-              .container { max-width: 560px; margin: 40px auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1); }
-              .header { background: linear-gradient(135deg, #0A1C2F 0%, #0F2A3F 100%); padding: 40px; text-align: center; }
-              .logo { font-size: 28px; font-weight: 700; color: #FFD966; margin-bottom: 8px; }
-              .content { padding: 40px; }
-              h2 { color: #ef4444; margin-top: 0; }
-              .footer { background: #F8FAFD; padding: 24px; text-align: center; font-size: 12px; color: #8A99A8; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <div class="logo">⚡ TITAN</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 14px;">Blockchain Capital</div>
-              </div>
-              <div class="content">
-                <h2>❌ Payment Rejected</h2>
-                <p>Hi <strong>${fullName}</strong>,</p>
-                <p>Unfortunately, your registration payment of <strong>$${amount}</strong> could not be verified.</p>
-                <div style="background: #FEF2F2; border-left: 3px solid #ef4444; padding: 16px; margin: 24px 0; border-radius: 8px;">
-                  <p style="margin: 0; color: #991B1B; font-size: 13px;"><strong>Reason:</strong> ${reason}</p>
-                </div>
-                <p>Please resubmit your payment receipt with the correct details. If you believe this is an error, please contact our support team.</p>
-              </div>
-              <div class="footer">
-                <p>© ${year} Titan Blockchain Capital. All rights reserved.</p>
-                <p><a href="mailto:${supportEmail}" style="color: #0F2A3F;">${supportEmail}</a></p>
-              </div>
-            </div>
-          </body>
-          </html>
-        `;
-      
-      default:
-        return '';
-    }
-  };
-  
-  const getTextBody = () => {
-    switch(type) {
-      case 'submitted':
-        return `TITAN BLOCKCHAIN CAPITAL - Payment Receipt Received\n\nHi ${fullName},\n\nWe have received your registration payment receipt of $${amount}.\n\nYour payment is currently under review by our admin team. You will be notified once it has been approved.\n\nIf you did not make this payment, please contact our support team immediately.\n\nBest regards,\nTitan Blockchain Capital Team`;
-      
-      case 'approved':
-        return `TITAN BLOCKCHAIN CAPITAL - Payment Approved!\n\nHi ${fullName},\n\nGreat news! Your registration payment of $${amount} has been approved and your account is now fully verified.\n\nYou can now access your dashboard: ${dashboardUrl}\n\nBest regards,\nTitan Blockchain Capital Team`;
-      
-      case 'rejected':
-        return `TITAN BLOCKCHAIN CAPITAL - Payment Rejected\n\nHi ${fullName},\n\nUnfortunately, your registration payment of $${amount} could not be verified.\n\nReason: ${reason}\n\nPlease resubmit your payment receipt with the correct details.\n\nBest regards,\nTitan Blockchain Capital Team`;
-      
-      default:
-        return '';
-    }
-  };
-  
+  const template = templates[type];
+
+  if (!template) {
+    throw new Error('Invalid payment email type');
+  }
+
+  const html = buildBaseEmailLayout({
+    title: template.subject,
+    eyebrow: template.eyebrow,
+    heading: template.heading,
+    intro: template.intro,
+    bodyHtml: template.bodyHtml,
+  });
+
+  const text = `
+${BRAND_NAME}
+
+Hello ${fullName || 'there'},
+
+${template.text}
+
+Need help? Contact ${SUPPORT_EMAIL}
+  `.trim();
+
   try {
     const { data, error } = await resend.emails.send({
-      from: `Titan Blockchain Capital <notifications@titanblockchaincapital.com>`,
+      from: FROM_NOTIFICATION_EMAIL,
       to: [to],
-      subject: subjects[type],
-      html: getHtmlBody(),
-      text: getTextBody(),
+      subject: template.subject,
+      html,
+      text,
       headers: {
         'X-Priority': '1',
         'X-Mailer': 'Titan Payment System',
-        'X-Entity-Ref-ID': `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-      }
+        'X-Entity-Ref-ID': `${Date.now()}-${crypto.randomBytes(6).toString('hex')}`,
+      },
     });
-    
-    if (error) throw error;
-    return { success: true, messageId: data?.id };
+
+    if (error) {
+      throw new Error(error.message || 'Unable to send payment email');
+    }
+
+    return {
+      success: true,
+      messageId: data?.id || null,
+    };
   } catch (error) {
-    console.error('Payment email delivery failed:', error);
-    // Don't throw error - email failure shouldn't break payment submission
-    console.log('⚠️ Email failed but payment was recorded');
-    return { success: false, error: error.message };
+    console.error('❌ Payment email delivery failed:', error);
+    return {
+      success: false,
+      error: error.message || 'Unable to send payment email',
+    };
   }
 };
 
-export { 
-  generateOTP, 
-  getOTPExpiry, 
-  sendEmailOTP, 
+export {
+  generateOTP,
+  getOTPExpiry,
+  sendEmailOTP,
   sendSMSOTP,
-  sendPaymentEmail
+  sendPaymentEmail,
 };

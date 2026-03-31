@@ -17,6 +17,7 @@ import {
   getUserById,
   deactivateAccount,
   reactivateAccount,
+  adminRejectUser,
 } from '../controllers/userController.js';
 import { protect, adminProtect } from '../middleware/authMiddleware.js';
 import multer from 'multer';
@@ -99,6 +100,8 @@ router.delete('/admin/users/:id', adminProtect, deleteUserById);
 
 // ✅ Manually verify user
 router.post('/admin/users/:id/verify', adminProtect, adminVerifyUser);
+
+router.post('/admin/users/:id/reject', adminProtect, adminRejectUser);
 
 
 // ==================== USER MANAGEMENT ROUTES ====================

@@ -262,7 +262,7 @@
                 </p>
               </div>
 
-              <form class="space-y-5">
+              <form id="registerForm" class="space-y-5">
                 <div>
                   <label
                     class="block text-sm font-semibold text-slate-200 mb-2"
@@ -276,6 +276,8 @@
                       <i data-lucide="user" class="w-5 h-5"></i>
                     </span>
                     <input
+                      id="fullName"
+                      name="fullName"
                       type="text"
                       placeholder="Enter your full name"
                       class="form-input w-full rounded-2xl pl-12 pr-4 py-4 text-sm"
@@ -296,6 +298,8 @@
                       <i data-lucide="phone" class="w-5 h-5"></i>
                     </span>
                     <input
+                      id="phoneNumber"
+                      name="phoneNumber"
                       type="tel"
                       placeholder="Enter your phone number"
                       class="form-input w-full rounded-2xl pl-12 pr-4 py-4 text-sm"
@@ -316,6 +320,8 @@
                       <i data-lucide="mail" class="w-5 h-5"></i>
                     </span>
                     <input
+                      id="email"
+                      name="email"
                       type="email"
                       placeholder="Enter your email"
                       class="form-input w-full rounded-2xl pl-12 pr-4 py-4 text-sm"
@@ -337,6 +343,7 @@
                     </span>
                     <input
                       id="registerPasswordInput"
+                      name="password"
                       type="password"
                       placeholder="Enter password"
                       class="form-input w-full rounded-2xl pl-12 pr-12 py-4 text-sm"
@@ -365,6 +372,7 @@
                     </span>
                     <input
                       id="registerConfirmPasswordInput"
+                      name="confirmPassword"
                       type="password"
                       placeholder="Confirm password"
                       class="form-input w-full rounded-2xl pl-12 pr-12 py-4 text-sm"
@@ -393,20 +401,30 @@
                       class="w-10 h-10 text-primary mb-3"
                     ></i>
                     <p class="text-white font-semibold">Upload photo</p>
-                    <p class="text-slate-400 text-sm mt-2 max-w-md">
+                    <p
+                      id="fileUploadText"
+                      class="text-slate-400 text-sm mt-2 max-w-md"
+                    >
                       Upload a clear photo for human verification during
                       registration review.
                     </p>
-                    <input type="file" class="hidden" />
+                    <input
+                      id="profileInput"
+                      name="profile"
+                      type="file"
+                      class="hidden"
+                      accept="image/*"
+                    />
                   </label>
                 </div>
 
-                <a
-                  href="otp.html"
+                <button
+                  type="submit"
+                  id="registerSubmitBtn"
                   class="w-full py-4 text-black font-bold rounded-2xl gold-gradient shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform text-center block"
                 >
                   Create Account
-                </a>
+                </button>
               </form>
 
               <p class="text-center text-sm text-slate-400 mt-6">
@@ -427,6 +445,9 @@
     <script>
       lucide.createIcons();
     </script>
+    <script src="js/toast.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/passwordToggle.js"></script>
+    <script src="js/register.js"></script>
   </body>
 </html>
